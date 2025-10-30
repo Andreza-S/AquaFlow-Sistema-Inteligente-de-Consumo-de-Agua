@@ -1,4 +1,10 @@
 # 💧 AquaFlow – Sistema Inteligente de Monitoramento e Previsão de Consumo de Água
+O repositório conterá:
+- Código principal (ESP32)
+- Scripts de calibração
+- Modelos de dados de teste
+- Documentação com as especificações do projeto
+
 
 ### Instituto Federal de Educação, Ciência e Tecnologia da Paraíba (IFPB)  
 **Campus:** Campina Grande  
