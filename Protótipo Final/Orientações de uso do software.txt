@@ -121,5 +121,3 @@ O módulo de ML processa históricos anuais para prever o consumo futuro:
 * **Modularidade:** As páginas são separadas, permitindo adicionar novos sensores ou gráficos sem afetar o núcleo do app.
 
 ---
-
-**Gostaria que eu gerasse o arquivo `requirements.txt` com as bibliotecas mencionadas no seu texto?**
