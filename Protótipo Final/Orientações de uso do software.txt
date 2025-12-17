@@ -1,0 +1,125 @@
+Sistema inteligente de monitoramento de consumo de água, detecção de vazamentos e previsão de demanda utilizando **Machine Learning** e sensores em tempo real.
+
+---
+
+## 🚀 Sobre o Projeto
+
+Este projeto oferece uma solução completa para gestão hídrica residencial ou comercial. Através de uma interface modular desenvolvida em **Dash**, o sistema permite visualizar o consumo em tempo real sobre a planta do imóvel, identificar irregularidades (vazamentos) e prever o consumo dos próximos meses com base em modelos de regressão.
+
+---
+
+## 📂 Estrutura do Projeto
+
+O projeto é organizado de forma modular para facilitar a manutenção e escalabilidade:
+
+```text
+Dashboard/
+├── app.py                # Inicialização da aplicação Dash
+├── assets/               # Recursos estáticos (imagens, CSS)
+├── data/                 # Armazenamento de CSVs e scripts de geração
+│   ├── config.json       # Configurações da casa e sensores
+│   ├── data.csv          # Dataset histórico simulado
+│   ├── data_test.csv     # Dados em tempo real dos sensores
+│   └── generate_dataset.py
+├── ml/                   # Módulos de Machine Learning
+│   ├── models/           # Modelos treinados (.pkl) e resultados
+│   ├── preprocess.py     # Tratamento de dados
+│   └── train_models.py   # Treinamento de modelos de regressão
+├── pages/                # Páginas e módulos da interface
+│   ├── alerts.py         # Detecção de vazamentos
+│   ├── consumption.py    # Gráficos de consumo
+│   ├── heatmap.py        # Mapa de calor interativo
+│   ├── prediction.py     # Previsão de consumo futuro
+│   └── ...
+└── requirements.txt      # Dependências do projeto
+
+```
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+* **Interface Web:** Dash, Dash Bootstrap Components.
+* **Visualização de Dados:** Plotly (Express e Graph Objects).
+* **Processamento de Dados:** Pandas, NumPy.
+* **Machine Learning:** Scikit-learn (Linear Regression, Random Forest, SVR, etc.).
+* **Hardware/Comunicação:** PySerial (leitura de sensores via `/dev/ttyUSB0`).
+* **Persistência:** JSON, Pickle, CSV.
+
+---
+
+## ⚙️ Como Executar
+
+### 1. Preparar o Ambiente
+
+Instale as dependências necessárias:
+
+```bash
+pip install -r requirements.txt
+
+```
+
+### 2. Coleta de Dados (Sensores)
+
+Para iniciar a leitura dos sensores via porta serial:
+
+```bash
+python get_data.py
+
+```
+
+*Os dados serão gravados em `data/data_test.csv` com timestamps sincronizados.*
+
+### 3. Inicializar o Dashboard
+
+Execute o servidor web:
+
+```bash
+python app.py
+
+```
+
+Acesse em seu navegador: `http://127.0.0.1:8050`
+
+---
+
+## 💡 Funcionalidades Principais
+
+### 🏠 Gestão da Residência
+
+* Configuração de proprietário, endereço e tarifa de água.
+* Upload personalizado da planta baixa do imóvel.
+
+### 🔥 Mapa de Calor (Heatmap)
+
+* Visualização dinâmica da vazão de água sobre a planta.
+* Círculos interativos que mudam de cor e tamanho conforme a intensidade do fluxo.
+* Ajuste manual da posição dos sensores via interface "clique e arraste".
+
+### ⚠️ Detecção de Vazamentos
+
+O sistema monitora a consistência dos dados. Se a vazão total (Sensor mestre) exceder a soma dos sensores individuais, o sistema gera:
+
+* Alertas visuais categorizados (Crítico, Médio, Leve).
+* Gráfico de dispersão da vazão excedente.
+* Tabela detalhada com o percentual de perda.
+
+### 🔮 Previsão com Machine Learning
+
+O módulo de ML processa históricos anuais para prever o consumo futuro:
+
+1. **Simulação:** `generate_dataset.py` cria dados sintéticos de 1 ano.
+2. **Treino:** O sistema testa diversos modelos e seleciona o de melhor **R^2**.
+3. **Resultado:** Previsão do consumo do próximo mês para melhor planejamento financeiro.
+
+---
+
+## 📝 Observações Técnicas
+
+* **Sem Banco de Dados:** O sistema utiliza arquivos CSV locais, simplificando a portabilidade.
+* **Atualização Real-time:** A tabela de dados e o heatmap utilizam `dcc.Interval` para atualização automática a cada segundo.
+* **Modularidade:** As páginas são separadas, permitindo adicionar novos sensores ou gráficos sem afetar o núcleo do app.
+
+---
+
+**Gostaria que eu gerasse o arquivo `requirements.txt` com as bibliotecas mencionadas no seu texto?**
